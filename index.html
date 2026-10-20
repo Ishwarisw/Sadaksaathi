@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SadakSaathi</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>SadakSaathi</h1>
+  <p>Spot a road hazard. Report it in 30 seconds.</p>
+
+  <label for="type">Hazard type</label>
+  <select id="type">
+    <option>Pothole</option>
+    <option>Open manhole</option>
+    <option>Broken streetlight</option>
+    <option>Waterlogged road</option>
+  </select>
+
+  <label for="photo">Photo</label>
+  <input type="file" id="photo" accept="image/*" capture="environment">
+
+  <label for="note">Note (optional)</label>
+  <textarea id="note"></textarea>
+
+  <button id="gps">Use my location</button>
+  <p id="loc">Location not set</p>
+
+  <button id="submit">Submit report</button>
+
+  <script src="app.js"></script>
+</body>
+</html>

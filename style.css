@@ -1,0 +1,5 @@
+body { font-family: Arial, sans-serif; max-width: 500px; margin: 20px auto; padding: 0 16px; background: #f3f1ea; }
+h1 { margin-bottom: 0; }
+label { display: block; font-weight: bold; margin-top: 14px; }
+select, textarea, input { width: 100%; padding: 10px; margin-top: 4px; box-sizing: border-box; }
+button { margin-top: 14px; padding: 12px 18px; background: #f2b01e; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; }
