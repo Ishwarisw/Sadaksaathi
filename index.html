@@ -20,6 +20,7 @@
 
   <label for="photo">Photo</label>
   <input type="file" id="photo" accept="image/*" capture="environment">
+  <img id="preview" alt="Photo preview" hidden>
 
   <label for="note">Note (optional)</label>
   <textarea id="note"></textarea>
@@ -27,7 +28,14 @@
   <button id="gps">Use my location</button>
   <p id="loc">Location not set</p>
 
+  <h2>Your complaint (auto-written)</h2>
+  <textarea id="complaint" rows="10" readonly></textarea>
+  <button id="copy">Copy complaint</button>
+
   <button id="submit">Submit report</button>
+
+  <h2>Reports</h2>
+  <div id="list"></div>
 
   <script src="app.js"></script>
 </body>
