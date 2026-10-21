@@ -11,3 +11,4 @@ button { margin-top: 14px; padding: 12px 18px; background: #f2b01e; border: none
 .row { display: flex; gap: 8px; }
 .row button { flex: 1; margin-top: 8px; }
 .fixed { background: #7bc67b; }
+#map { height: 320px; border-radius: 10px; margin-top: 10px; }

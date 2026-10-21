@@ -19,6 +19,44 @@ function save() {
   }
 }
 
+// ---------- map ----------
+let map = null;
+let markerLayer = null;
+
+if (typeof L !== "undefined") {
+  map = L.map("map").setView([18.5204, 73.8567], 12); // Pune
+  L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    maxZoom: 19,
+    attribution: "&copy; OpenStreetMap contributors"
+  }).addTo(map);
+  markerLayer = L.layerGroup().addTo(map);
+} else {
+  $("map").textContent = "Map could not load. Check your internet connection.";
+}
+
+function refreshMap() {
+  if (!map) return;
+  markerLayer.clearLayers();
+  reports.forEach((r) => {
+    const stillBroken = r.broken > r.fixed;
+    L.circleMarker([r.place.lat, r.place.lng], {
+      radius: 10,
+      color: stillBroken ? "#c0392b" : "#2e8b57",
+      fillOpacity: 0.8
+    })
+      .bindPopup(
+        `<b>${escapeHTML(r.type)}</b><br>` +
+        `${stillBroken ? "Still broken" : "Fixed"} (${r.broken} / ${r.fixed})<br>` +
+        `<img src="${r.photo}" style="width:160px;border-radius:6px;margin-top:6px">`
+      )
+      .addTo(markerLayer);
+  });
+  if (reports.length > 0) {
+    const bounds = L.latLngBounds(reports.map((r) => [r.place.lat, r.place.lng]));
+    map.fitBounds(bounds, { padding: [30, 30], maxZoom: 16 });
+  }
+}
+
 // ---------- location ----------
 $("gps").addEventListener("click", () => {
   $("loc").textContent = "Finding you...";
@@ -34,8 +72,6 @@ $("gps").addEventListener("click", () => {
 });
 
 // ---------- photo preview + shrink ----------
-// Phone photos are 3-5 MB; browser storage is about 5 MB in total,
-// so each photo is shrunk to 400px wide before saving.
 $("photo").addEventListener("change", (e) => {
   const file = e.target.files[0];
   if (!file) return;
@@ -118,7 +154,6 @@ $("submit").addEventListener("click", () => {
   save();
   render();
 
-  // reset the form
   $("note").value = "";
   $("photo").value = "";
   $("preview").hidden = true;
@@ -127,6 +162,7 @@ $("submit").addEventListener("click", () => {
 });
 
 function render() {
+  refreshMap();
   const list = $("list");
   if (reports.length === 0) {
     list.innerHTML = "<p>No reports yet. Submit the first one.</p>";
